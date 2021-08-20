@@ -133,6 +133,7 @@
         
         d3.selectAll(".card-image")
             .data(cards)
+            .attr("onClick","") // Necessary for iPhones
             .on("click", function(d,i) {
                 cardClick(this);
             });
