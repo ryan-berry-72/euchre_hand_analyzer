@@ -11,7 +11,7 @@
 <body onload=init()>
 <header>
     <h1>Euchre Hand Analyzer</h1>
-    <h2>v0.0.1</h2>
+    <h2>v0.0.2</h2>
 </header>
 <div class="card-images">
     <div class="prompt" id="selection-prompt">Create a hand by selecting five cards</div>
@@ -126,15 +126,14 @@
     const cards = createEuchreCards();
     const MAX_CARDS = 5;
     var cardsSelected = [];
-
+    let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 
     function init() {
         console.log("Initializing");
 
-        
         d3.selectAll(".card-image")
             .data(cards)
-            .on("click", function(d,i) {
+            .on(touchEvent, function(d,i) {
                 cardClick(this);
             });
 
