@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Texturina', sans-serif;
+    font-weight: bold;
+}
+
+body {
+    background-color: #35654d;
+}
+
+header {
+    background: white;
+    padding: 20px;
+    border: 1px solid black;
+}
+
+header > h1 {
+    color: black;
+    text-align: center;
+    font-size: 50px;
+}
+
+.prompt {
+    font-size: xx-large;
+}
+
+#selection-prompt {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.card-images {
+    margin: 50px 10px;
+    position: center;
+}
+
+.suit {
+    margin-bottom: 5px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    /*border: 4px solid black;*/
+    /*border-radius: 10px*/
+}
+
+.card-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 50%;
+    padding: 5px;
+    transition: all 0.2s ease;
+    position: center;
+    border-radius: 10px;
+}
+
+.card-image:hover {
+    cursor: pointer;
+    background: black;
+    border: 4px solid black;
+    border-radius: 10px;
+}
+
+#analysis-prompt {
+    margin: 75px 75px;
+    text-align: center;
+}
+
+.analyses {
+    margin: 100px 0px;
+    position: center;
+    background: white;
+    border: 1px solid black;
+}
+
+.analysis {
+    margin-bottom: 5px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    padding: 20px;
+}
+
+.suit-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    padding: 5px;
+}
+
+.prediction {
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    top: 75px;
+    left: 75px;
+}
+
+.information {
+    margin: 75px 75px;
+    text-align: center;
+}
