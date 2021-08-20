@@ -54,6 +54,7 @@ header > h1 {
     transition: all 0.2s ease;
     position: center;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .card-image:hover {
