@@ -157,8 +157,6 @@
                 }
             }
         }
-        console.log(d3.select(card).datum());
-        console.log("Cards selected: " + cardsSelected.length);
     }
 
     function updateScoreAnalysis() {
@@ -172,7 +170,8 @@
             }
         };
         
-        postData('http://localhost:5000/analyze-hand', data).then( response => {
+        console.log("Sending request to analyzer api");
+        postData('http://192.168.1.159:5000/analyze-hand', data).then( response => {
             console.log("JSON response: " + JSON.stringify(response));
             d3.select('#spades-prediction')
                 .text(response.hand_analysis.SPADES.predicted_wins);
@@ -183,10 +182,11 @@
             d3.select('#diamonds-prediction')
                 .text(response.hand_analysis.DIAMONDS.predicted_wins);
         });
+        console.log("Completed request to analyzer api");
     }
 
     async function postData(url, data) {
-        console.log("\nPosting data: " + JSON.stringify(data));
+        console.log("Posting data: " + JSON.stringify(data));
         // Default options are marked with *
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -200,6 +200,8 @@
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data) // body data type must match "Content-Type" header
+        }).catch(error => {
+            console.error("Failed post request: " + error);
         });
         return response.json(); // parses JSON response into native JavaScript objects
     }
