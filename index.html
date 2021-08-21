@@ -11,11 +11,14 @@
 <body onload=init()>
 <header>
     <h1>Euchre Hand Analyzer</h1>
-    <h2>v0.0.3</h2>
+    <h2>v0.0.4</h2>
 </header>
 <div class="card-images">
     <div class="prompt" id="selection-prompt">Create a hand by selecting five cards</div>
     <div class="suit" id="S">
+        <div class="card-image" id="11S">
+            <img src="./resources/PNG/JS.png" width="100" height="150">
+        </div>
         <div class="card-image" id="1S">
             <img src="./resources/PNG/AS.png" width="100" height="150">
         </div>
@@ -25,9 +28,6 @@
         <div class="card-image" id="12S">
             <img src="./resources/PNG/QS.png" width="100" height="150">
         </div>
-        <div class="card-image" id="11S">
-            <img src="./resources/PNG/JS.png" width="100" height="150">
-        </div>
         <div class="card-image" id="10S">
             <img src="./resources/PNG/10S.png" width="100" height="150">
         </div>
@@ -36,6 +36,9 @@
         </div>
     </div>
     <div class="suit" id="C">
+        <div class="card-image" id="11C">
+            <img src="./resources/PNG/JC.png" width="100" height="150">
+        </div>
         <div class="card-image" id="1C">
             <img src="./resources/PNG/AC.png" width="100" height="150">
         </div>
@@ -45,9 +48,6 @@
         <div class="card-image" id="12C">
             <img src="./resources/PNG/QC.png" width="100" height="150">
         </div>
-        <div class="card-image" id="11C">
-            <img src="./resources/PNG/JC.png" width="100" height="150">
-        </div>
         <div class="card-image" id="10C">
             <img src="./resources/PNG/10C.png" width="100" height="150">
         </div>
@@ -56,6 +56,9 @@
         </div>
     </div>
     <div class="suit" id="H">
+        <div class="card-image" id="11H">
+            <img src="./resources/PNG/JH.png" width="100" height="150">
+        </div>
         <div class="card-image" id="1H">
             <img src="./resources/PNG/AH.png" width="100" height="150">
         </div>
@@ -65,9 +68,6 @@
         <div class="card-image" id="12H">
             <img src="./resources/PNG/QH.png" width="100" height="150">
         </div>
-        <div class="card-image" id="11H">
-            <img src="./resources/PNG/JH.png" width="100" height="150">
-        </div>
         <div class="card-image" id="10H">
             <img src="./resources/PNG/10H.png" width="100" height="150">
         </div>
@@ -76,6 +76,9 @@
         </div>
     </div>
     <div class="suit" id="D">
+        <div class="card-image" id="11D">
+            <img src="./resources/PNG/JD.png" width="100" height="150">
+        </div>
         <div class="card-image" id="1D">
             <img src="./resources/PNG/AD.png" width="100" height="150">
         </div>
@@ -84,9 +87,6 @@
         </div>
         <div class="card-image" id="12D">
             <img src="./resources/PNG/QD.png" width="100" height="150">
-        </div>
-        <div class="card-image" id="11D">
-            <img src="./resources/PNG/JD.png" width="100" height="150">
         </div>
         <div class="card-image" id="10D">
             <img src="./resources/PNG/10D.png" width="100" height="150">
@@ -97,7 +97,7 @@
     </div>
 </div>
 <div class="analyses">
-    <div class="prompt" id="analysis-prompt">Projected number of trick wins for each possible trump suit:</div>
+    <div class="prompt" id="analysis-prompt">Projected number of tricks won for each possible trump suit:</div>
     <div class="analysis">
         <div class="suit-image" id="spades-image">
             <img src="resources/single_spade_nb.png" width="200" height="200">
@@ -116,7 +116,7 @@
             <div class="prediction" id="diamonds-prediction">0.0</div>
         </div>
     </div>
-    <div class="information" id="algorithm-info">The projection is based on a customized machine learning algorithm. 
+    <div class="information" id="algorithm-info">The projections are based on a customized machine learning algorithm. 
         This Random Forest Regression model, trained on over 40,000 simulated Euchre hands, 
         provides competitive predictions with a Mean Squared Error (MSE) of 0.43.  
     </div>
@@ -155,6 +155,9 @@
                 if(cardsSelected.length === MAX_CARDS) {
                     updateScoreAnalysis();
                 }
+            } else if(cardsSelected.length == MAX_CARDS) {
+                cardClick(cardsSelected[cardsSelected.length-1]);
+                cardClick(card);
             }
         }
     }
@@ -171,6 +174,7 @@
         };
         
         console.log("Sending request to analyzer api");
+        //192.168.1.159
         postData('http://192.168.1.159:5000/analyze-hand', data).then( response => {
             console.log("JSON response: " + JSON.stringify(response));
             d3.select('#spades-prediction')
@@ -201,6 +205,7 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data) // body data type must match "Content-Type" header
         }).catch(error => {
+            alert("Unable to contact backend analyzer");
             console.error("Failed post request: " + error);
         });
         return response.json(); // parses JSON response into native JavaScript objects
@@ -214,7 +219,7 @@
     }
 
     function createEuchreCards() {
-        const valuesOrder = [1,13,12,11,10,9];
+        const valuesOrder = [11,1,13,12,10,9];
         const suitOrder = ["S","C","H","D"];
         var euchreCards = [];
         var currCardIndex = 0;
