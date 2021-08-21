@@ -11,7 +11,7 @@
 <body onload=init()>
 <header>
     <h1>Euchre Hand Analyzer</h1>
-    <h2>v0.0.4</h2>
+    <h2>v0.0.5</h2>
 </header>
 <div class="card-images">
     <div class="prompt" id="selection-prompt">Create a hand by selecting five cards</div>
@@ -174,8 +174,9 @@
         };
         
         console.log("Sending request to analyzer api");
-        //192.168.1.159
-        postData('http://192.168.1.159:5000/analyze-hand', data).then( response => {
+        //192.168.1.159 internal
+        //173.73.118.64 external
+        postData('http://173.73.118.64:5000/analyze-hand', data).then( response => {
             console.log("JSON response: " + JSON.stringify(response));
             d3.select('#spades-prediction')
                 .text(response.hand_analysis.SPADES.predicted_wins);
