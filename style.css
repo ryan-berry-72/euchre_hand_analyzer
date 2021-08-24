@@ -94,10 +94,11 @@ header > h2 {
 }
 
 .prediction {
-    position: absolute;
     color: white;
     font-size: 40px;
     font-weight: bold;
+    position: absolute;
+    text-align: center;
     top: 75px;
     left: 75px;
 }
